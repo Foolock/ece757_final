@@ -27,7 +27,15 @@
 
 # To modify partition size 
 
-1. Partition size refers to the upper limit of number of tasks within one partition. E.g., if we have a partition size of 100, that means each partition will have *at most* 100 tasks
+```bash
+
+~$ # line 16 of /examples/final_project_test.cpp
+~$ partitioner.set_partition_size(partition_size);
+~$ # partition_size is set as the total number of tasks in the graph by default (partitioner.num_nodes()). 
+
+```
+
+1. `partition_size` refers to the upper limit of number of tasks within one partition. E.g., if we have a partition size of 100, that means each partition will have **at most** 100 tasks
 
 
 
