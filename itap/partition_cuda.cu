@@ -154,7 +154,6 @@ void iTAP::_partition_cuda() {
   checkError_t(cudaMemcpy(partition_result_gpu.data(), d_partition_result_gpu, sizeof(int)*num_nodes, cudaMemcpyDeviceToHost), "_partition_result_gpu memcpy failed"); 
   auto end = std::chrono::steady_clock::now();
   partition_time += std::chrono::duration_cast<std::chrono::microseconds>(end-start).count();
-  std::cout << "gpu partition time = " << partition_time << "us\n";
   checkError_t(cudaMemcpy(&max_partition_id_cpu, max_partition_id, sizeof(int), cudaMemcpyDeviceToHost), "max_partition_id_cpu memcpy failed"); 
  
   // assign partition IDs to nodes according to partition_result_gpu

@@ -507,8 +507,6 @@ void iTAP::partition(bool incremental, bool only_handle_edge) {
     
     _cluster_cnt.clear(); // clear the cluster cnt in last iteration
 
-    std::cout << "runnning---------------------------\n";
-
     // _partition_cpu();
     _partition_cuda();
 
@@ -830,7 +828,7 @@ void iTAP::dump_graph() {
 /**
 @brief: build cluster graph using taskflow and run it. (used for runtime test)
 */
-void iTAP::run_graph() {
+void iTAP::run_graph(size_t matrix_size) {
 
   for(const auto& node : _nodes) {
     if(node._cluster_id == -1) {
@@ -843,7 +841,6 @@ void iTAP::run_graph() {
 
   tf::Taskflow taskflow;
   tf::Executor executor;
-  size_t matrix_size = 8;
 
   auto start = std::chrono::steady_clock::now();
   for(auto& node : _nodes) {
@@ -967,19 +964,22 @@ void iTAP::run_graph() {
   }
 
   std::cout << "origin taskflow runtime: " << origin_taskflow_runtime << " us"
-            << ", origin taskflow buildtime: " << origin_taskflow_buildtime << " us"
-            << ", partitioned taskflow runtime: " << partitioned_taskflow_runtime << " us"
-            << ", partitioned taskflow buildtime: " << partitioned_taskflow_buildtime << " us"
-            << ", sequential runtime: " << seq_runtime << " us"
-            // << " graph size: " << _nodes.size() 
-            << ", partition runtime: " << partition_time << " us"
-            << ", partition_size: " << _partition_size 
-            << ", num_partitions: " << num_clusters 
-            << ", num_deps: " << num_deps 
-            << ", smallest precede: " << *(std::min_element(precede_time.begin(), precede_time.end()))
-            << ", largest precede: " << *(std::max_element(precede_time.begin(), precede_time.end()))
-            << ", max cluster size: " << *(std::max_element(_cluster_cnt.begin(), _cluster_cnt.end())) 
-            << ", imbalanced_factor: " << get_imbalanced_factor() << "\n";
+            << ", partitioned taskflow runtime: " << partitioned_taskflow_runtime << " us\n";
+
+  // std::cout << "origin taskflow runtime: " << origin_taskflow_runtime << " us"
+  //           << ", origin taskflow buildtime: " << origin_taskflow_buildtime << " us"
+  //           << ", partitioned taskflow runtime: " << partitioned_taskflow_runtime << " us"
+  //           << ", partitioned taskflow buildtime: " << partitioned_taskflow_buildtime << " us"
+  //           << ", sequential runtime: " << seq_runtime << " us"
+  //           // << " graph size: " << _nodes.size() 
+  //           << ", partition runtime: " << partition_time << " us"
+  //           << ", partition_size: " << _partition_size 
+  //           << ", num_partitions: " << num_clusters 
+  //           << ", num_deps: " << num_deps 
+  //           << ", smallest precede: " << *(std::min_element(precede_time.begin(), precede_time.end()))
+  //           << ", largest precede: " << *(std::max_element(precede_time.begin(), precede_time.end()))
+  //           << ", max cluster size: " << *(std::max_element(_cluster_cnt.begin(), _cluster_cnt.end())) 
+  //           << ", imbalanced_factor: " << get_imbalanced_factor() << "\n";
   taskflow.clear();
   partition_time = 0;
 

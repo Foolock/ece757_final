@@ -194,7 +194,7 @@ class iTAP {
     
     void dump_graph();
 
-    void run_graph();
+    void run_graph(size_t matrix_size);
 
     // ctest checker  
     size_t num_nodes() const {
