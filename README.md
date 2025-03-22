@@ -12,8 +12,8 @@
 
 # Note
 1. Our partitioner takes 2 inputs, one is a circuit file, one is the matrix_size.
-2. Circuit files (describing the structure of a circuit in the form of a dependency acyclic graph) are stored in /benchmark. 
-3. matrix_size is used to define how much workload each task in the task graph has. Each task in the graph is doing matrix multiplication with a problemn size of matrix_size^3.
+2. `circuit_file` (describing the structure of a circuit in the form of a dependency acyclic graph) are stored in /benchmark. 
+3. `matrix_size` is used to define how much workload each task in the task graph has. Each task in the graph is doing matrix multiplication with a problemn size of matrix_size^3.
 4. For static timing analysis, a typical matrix size is 8. We can use this number for most of our experiments.
 
 # An example run
@@ -26,5 +26,14 @@
 ```
 
 # To modify partition size 
+
+1. Partition size refers to the upper limit of number of tasks within one partition. E.g., if we have a partition size of 100, that means each partition will have *at most* 100 tasks
+
+
+
+
+
+
+
 
 
