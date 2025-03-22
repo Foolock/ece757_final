@@ -93,6 +93,7 @@ p0x556d7b242ac0[label="16[1]" ];
 ```
 
 Copy and paste it to [graphviz online](https://dreampuf.github.io/GraphvizOnline/) for visualization.
+The information in each task stands for: task ID \[the partition this task belongs to\].
 
 
 
